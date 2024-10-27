@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loteria Musical</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #003975;
+            margin-bottom: 20px;
+        }
+
+        #mainImage {
+            display: block;
+            margin: 20px auto;
+            width: auto;
+            height: 376px;
+            border: 5px solid #3374B9;
+            border-radius: 10px;
+        }
+
+        #imageContainer {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        #imageContainer img {
+            width: 132px;
+            height: 200px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 2px solid #3374B9;
+        }
+
+        button {
+            background-color: #3374B9;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #003975;
+        }
+
+        footer {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lotería Musical</h1>
+
+    <!-- Mostrar la imagen inicial imagen0.jpg al cargar la página -->
+    <img id="mainImage" src="./imglotmus/img0.png" alt="Imagen inicial">
+
+    <button id="nextButton">Siguiente tarjeta</button>
+
+    <div id="imageContainer"></div>
+
+    <footer>
+        <p>GRAFI-PEGASO</p>
+    </footer>
+
+    <script>
+        const images = [];
+        const displayedImages = [];
+
+        // Genera una lista de imágenes desde imagen1.jpg hasta imagen54.jpg (excluyendo imagen0.jpg)
+        for (let i = 1; i <= 54; i++) {
+            images.push(`./imglotmus/img${i}.png`); // Ruta relativa a la carpeta 'imagenes'
+        }
+
+        // Función para mostrar la siguiente imagen
+        function showNextImage() {
+            if (images.length === 0) {
+                alert('No hay más tarjetas.');
+                return;
+            }
+
+            // Elige una imagen aleatoria sin repetir
+            const randomIndex = Math.floor(Math.random() * images.length);
+            const selectedImage = images.splice(randomIndex, 1)[0];
+
+            // Actualiza la imagen principal
+            const mainImage = document.getElementById('mainImage');
+            mainImage.src = selectedImage;
+
+            // Añade la imagen a la fila de imágenes mostradas
+            const imageContainer = document.getElementById('imageContainer');
+            const newImg = document.createElement('img');
+            newImg.src = selectedImage;
+            imageContainer.appendChild(newImg);
+        }
+
+        // Evento para el botón "Siguiente Imagen"
+        document.getElementById('nextButton').addEventListener('click', showNextImage);
+    </script>
+</body>
+</html>
